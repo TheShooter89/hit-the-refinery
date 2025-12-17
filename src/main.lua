@@ -1,5 +1,7 @@
 dofile("setup.lua")
 
+require("love")
+
 Modes = require("core.modes")
 
 print("+-------------------+")

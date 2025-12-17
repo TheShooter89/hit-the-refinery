@@ -1,4 +1,4 @@
-Modes = require("modes")
+Modes = require("core.modes")
 
 local State = {
 	mode = Modes.START,

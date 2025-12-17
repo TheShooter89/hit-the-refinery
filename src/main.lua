@@ -1,6 +1,6 @@
 dofile("setup.lua")
 
-Modes = require("modes")
+Modes = require("core.modes")
 
 print("+-------------------+")
 print("| HIT THE REFINERY! |")
@@ -8,7 +8,7 @@ print("+-------------------+")
 print("coded with <3 by tanque")
 
 function love.load()
-	game_state = require("state")
+	game_state = require("core.state")
 	print("GAME MODE: " .. game_state.mode)
 end
 

@@ -1,8 +1,10 @@
 dofile("setup.lua")
 
 require("love")
+class = require("lib.middleclass")
 
 Modes = require("core.modes")
+Menu = require("ui.menu")
 
 print("+-------------------+")
 print("| HIT THE REFINERY! |")
@@ -12,14 +14,17 @@ print("coded with <3 by tanque")
 function love.load()
 	game_state = require("core.state")
 	print("GAME MODE: " .. game_state.mode)
+
+	menu = require("ui.menu")
 end
 
 function love.update(dt)
 	--
+	menu:update(dt)
 end
 
 function love.draw()
-	--
+	menu:draw()
 end
 
 function love.keypressed(key)

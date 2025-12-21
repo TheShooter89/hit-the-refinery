@@ -15,7 +15,8 @@ function love.load()
 	game_state = require("core.state")
 	print("GAME MODE: " .. game_state.mode)
 
-	menu = require("ui.menu")
+	-- menu = require("ui.menu")
+	menu = Menu:new()
 end
 
 function love.update(dt)

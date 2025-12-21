@@ -1,3 +1,5 @@
+local Entity = require("core.entity")
+
 MENU_X = 0
 MENU_Y = 0
 MENU_WIDTH = 360
@@ -6,17 +8,16 @@ MENU_PADDING = 30
 MENU_BACKGROUND_COLOR = { love.math.colorFromBytes(0, 87, 183) }
 MENU_TITLE_COLOR = { love.math.colorFromBytes(255, 215, 0) }
 
-local Menu = {
-	x = MENU_X,
-	y = MENU_Y,
-	width = MENU_WIDTH,
-	height = MENU_HEIGHT,
-	padding = MENU_PADDING,
-	background_color = MENU_BACKGROUND_COLOR,
-	title_color = MENU_TITLE_COLOR,
-}
+local Menu = class("Menu", Entity)
 
-function Menu.draw(self)
+function Menu:initialize()
+	Entity.initialize(self, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT)
+	self.padding = MENU_PADDING
+	self.background_color = MENU_BACKGROUND_COLOR
+	self.title_color = MENU_TITLE_COLOR
+end
+
+function Menu:draw()
 	local window_width = love.graphics.getWidth()
 	local window_height = love.graphics.getHeight()
 
@@ -50,7 +51,7 @@ function Menu.draw(self)
 	button:draw()
 end
 
-function Menu.update(self, dt)
+function Menu:update(dt)
 	-- print("updating menu")
 	local button = require("ui.button")
 	button:update(dt)

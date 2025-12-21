@@ -19,12 +19,19 @@ function love.load()
 end
 
 function love.update(dt)
-	--
-	menu:update(dt)
+	if game_state.mode == Modes.START then
+		menu:update(dt)
+	elseif game_state.mode == Modes.PAUSE then
+		menu:update(dt)
+	end
 end
 
 function love.draw()
-	menu:draw()
+	if game_state.mode == Modes.START then
+		menu:draw()
+	elseif game_state.mode == Modes.PAUSE then
+		menu:draw()
+	end
 end
 
 function love.keypressed(key)

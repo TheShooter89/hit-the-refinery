@@ -40,10 +40,20 @@ function Menu.draw(self)
 	title_y = self.y + self.padding
 	love.graphics.setColor(self.title_color)
 	love.graphics.print(title, title_x, self.y + self.padding)
+
+	-- draw button
+	local button = require("ui.button")
+	btn_x = ((self.width - button.width) / 2) + self.x
+	btn_y = title_y + font:getHeight(title) + (self.padding + 1.5)
+	button.x = btn_x
+	button.y = btn_y
+	button:draw()
 end
 
-function Menu.update(dt)
+function Menu.update(self, dt)
 	-- print("updating menu")
+	local button = require("ui.button")
+	button:update(dt)
 end
 
 return Menu

@@ -1,4 +1,5 @@
 local Entity = require("core.entity")
+local Button = require("ui.button")
 
 MENU_X = 0
 MENU_Y = 0
@@ -8,13 +9,33 @@ MENU_PADDING = 30
 MENU_BACKGROUND_COLOR = { love.math.colorFromBytes(0, 87, 183) }
 MENU_TITLE_COLOR = { love.math.colorFromBytes(255, 215, 0) }
 
+---@class MenuOptions
+---@field padding number
+---@field background_color {r: number, g: number, b: number}
+---@field title_color  {r: number, g: number, b: number}
+
+---@class Menu: Entity
+---@field padding number
+---@field background_color {r: number, g: number, b: number}
+---@field title_color  {r: number, g: number, b: number}
+---@field new fun(opt: MenuOptions): self
+---@field initialize fun(self: self, opt: MenuOptions): self
 local Menu = class("Menu", Entity)
 
-function Menu:initialize()
-	Entity.initialize(self, MENU_X, MENU_Y, MENU_WIDTH, MENU_HEIGHT)
+function Menu:initialize(opts)
+	options = opts or {
+		x = MENU_X,
+		y = MENU_Y,
+		width = MENU_WIDTH,
+		height = MENU_HEIGHT,
+	}
+	Entity.initialize(self, options)
 	self.padding = MENU_PADDING
 	self.background_color = MENU_BACKGROUND_COLOR
 	self.title_color = MENU_TITLE_COLOR
+	self.buttons = {
+		Button:new(),
+	}
 end
 
 function Menu:draw()
@@ -43,7 +64,9 @@ function Menu:draw()
 	love.graphics.print(title, title_x, self.y + self.padding)
 
 	-- draw button
-	local button = require("ui.button")
+	print("inside draw menu")
+	print(self.buttons[1])
+	local button = self.buttons[1]
 	btn_x = ((self.width - button.width) / 2) + self.x
 	btn_y = title_y + font:getHeight(title) + (self.padding + 1.5)
 	button.x = btn_x
@@ -53,8 +76,11 @@ end
 
 function Menu:update(dt)
 	-- print("updating menu")
-	local button = require("ui.button")
-	button:update(dt)
+	print("buttons:")
+	print(self.buttons)
+	-- self.buttons[0]:update(dt)
+	local btn = self.buttons[1]
+	btn:update(dt)
 end
 
 return Menu

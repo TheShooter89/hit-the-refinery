@@ -1,24 +1,49 @@
+local class = require("lib.middleclass")
+local Entity = require("core.entity")
+
 BUTTON_X = 0
 BUTTON_Y = 0
 BUTTON_WIDTH = 140
 BUTTON_HEIGHT = 50
 BUTTON_PADDING = 10
+BUTTON_MODE = "fill"
 BUTTON_BACKGROUND_COLOR = { love.math.colorFromBytes(255, 215, 0) }
 BUTTON_TITLE_COLOR = { love.math.colorFromBytes(0, 87, 183) }
 
-local Button = {
-	text = "BUTTON",
-	mode = "fill",
-	x = BUTTON_X,
-	y = BUTTON_Y,
-	width = BUTTON_WIDTH,
-	height = BUTTON_HEIGHT,
-	padding = BUTTON_PADDING,
-	background_color = BUTTON_BACKGROUND_COLOR,
-	title_color = BUTTON_TITLE_COLOR,
-}
+---@class ButtonOptions: EntityOptions
+---@field padding number
+---@field background_color {r: number, g: number, b: number}
+---@field title_color  {r: number, g: number, b: number}
+---@field mode string
+---@field text string
 
-function Button.draw(self)
+---@class Button: Entity
+---@field padding number
+---@field background_color {r: number, g: number, b: number}
+---@field title_color  {r: number, g: number, b: number}
+---@field mode string
+---@field text string
+---@field new fun(opt: ButtonOptions): self
+---@field initialize fun(self: self, opt: ButtonOptions): self
+local Button = class("Button", Entity)
+
+function Button:initialize(opts)
+	options = opts or {
+		x = BUTTON_X,
+		y = BUTTON_Y,
+		width = BUTTON_WIDTH,
+		height = BUTTON_HEIGHT,
+	}
+	Entity.initialize(self, options)
+
+	self.padding = BUTTON_PADDING
+	self.background_color = BUTTON_BACKGROUND_COLOR
+	self.title_color = BUTTON_TITLE_COLOR
+	self.mode = BUTTON_MODE
+	self.text = "BUTTON"
+end
+
+function Button:draw()
 	-- draw the menu
 	love.graphics.setColor(self.background_color)
 	love.graphics.rectangle(self.mode, self.x, self.y, self.width, self.height)
@@ -36,7 +61,7 @@ function Button.draw(self)
 	love.graphics.print(title, title_x, title_y)
 end
 
-function Button.update(self, dt)
+function Button:update(dt)
 	-- print("updating menu")
 	local mx, my = love.mouse.getPosition()
 	local hot = mx > self.x and mx < self.x + self.width and my > self.y and my < self.y + self.height

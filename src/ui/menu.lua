@@ -1,3 +1,5 @@
+require("utils.tables")
+
 local Entity = require("core.entity")
 local Button = require("ui.button")
 
@@ -23,16 +25,20 @@ MENU_TITLE_COLOR = { love.math.colorFromBytes(255, 215, 0) }
 local Menu = class("Menu", Entity)
 
 function Menu:initialize(opts)
-	options = opts or {
+	local options = merge_tables({
 		x = MENU_X,
 		y = MENU_Y,
 		width = MENU_WIDTH,
 		height = MENU_HEIGHT,
-	}
+		padding = MENU_PADDING,
+		background_color = MENU_BACKGROUND_COLOR,
+		title_color = MENU_TITLE_COLOR,
+	}, opts)
 	Entity.initialize(self, options)
-	self.padding = MENU_PADDING
-	self.background_color = MENU_BACKGROUND_COLOR
-	self.title_color = MENU_TITLE_COLOR
+	self.padding = options.padding
+	self.background_color = options.background_color
+	self.title_color = options.title_color
+
 	self.buttons = {
 		Button:new(),
 	}

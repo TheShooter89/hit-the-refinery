@@ -1,3 +1,5 @@
+require("utils.tables")
+
 local class = require("lib.middleclass")
 local Entity = require("core.entity")
 
@@ -28,19 +30,24 @@ BUTTON_TITLE_COLOR = { love.math.colorFromBytes(0, 87, 183) }
 local Button = class("Button", Entity)
 
 function Button:initialize(opts)
-	options = opts or {
+	options = merge_tables({
 		x = BUTTON_X,
 		y = BUTTON_Y,
 		width = BUTTON_WIDTH,
 		height = BUTTON_HEIGHT,
-	}
+		padding = BUTTON_PADDING,
+		background_color = BUTTON_BACKGROUND_COLOR,
+		title_color = BUTTON_TITLE_COLOR,
+		mode = BUTTON_MODE,
+		text = "BUTTON",
+	}, opts)
 	Entity.initialize(self, options)
 
-	self.padding = BUTTON_PADDING
-	self.background_color = BUTTON_BACKGROUND_COLOR
-	self.title_color = BUTTON_TITLE_COLOR
-	self.mode = BUTTON_MODE
-	self.text = "BUTTON"
+	self.padding = options.padding
+	self.background_color = options.background_color
+	self.title_color = options.title_color
+	self.mode = options.mode
+	self.text = options.text
 end
 
 function Button:draw()

@@ -39,11 +39,12 @@ function Menu:initialize(opts)
 	self.buttons = {
 		Button:new({
 			text = "START GAME",
-			on_click = function(dt)
+			on_click = function(self, dt)
 				print("STARTING THE GAME")
 				-- love.event.quit(0)
 				game_state.mode = Modes.RUNNING
 				print("[CLICKED] user: " .. tostring(game_state.user.name))
+				print("[CLICKED] current theme: " .. tostring(self.theme.current.name))
 			end,
 		}),
 	}

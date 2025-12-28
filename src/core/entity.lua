@@ -30,8 +30,13 @@ local Entity = class("Entity")
 function Entity:initialize(opts)
 	local options = merge_tables(DEFAULT_ENTITY_OPTS, opts)
 
-	self.is_visible, self.x, self.y, self.width, self.height =
-		options.is_visible, options.x, options.y, options.width, options.height
+	init_self_fields(self, {
+		"is_visible",
+		"x",
+		"y",
+		"width",
+		"height",
+	}, options)
 end
 
 return Entity

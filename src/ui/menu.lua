@@ -3,18 +3,19 @@ require("utils.tables")
 local Entity = require("core.entity")
 local Button = require("ui.button")
 
-MENU_X = 0
-MENU_Y = 0
-MENU_WIDTH = 360
-MENU_HEIGHT = 300
-MENU_PADDING = 30
-MENU_BACKGROUND_COLOR = { love.math.colorFromBytes(0, 87, 183) }
-MENU_TITLE_COLOR = { love.math.colorFromBytes(255, 215, 0) }
-
 ---@class MenuOptions
 ---@field padding number
 ---@field background_color {r: number, g: number, b: number}
 ---@field title_color  {r: number, g: number, b: number}
+local DEFAULT_MENU_OPTIONS = {
+	x = 0,
+	y = 0,
+	width = 360,
+	height = 300,
+	padding = 30,
+	background_color = { love.math.colorFromBytes(0, 87, 183) },
+	title_color = { love.math.colorFromBytes(255, 215, 0) },
+}
 
 ---@class Menu: Entity
 ---@field padding number
@@ -25,15 +26,7 @@ MENU_TITLE_COLOR = { love.math.colorFromBytes(255, 215, 0) }
 local Menu = class("Menu", Entity)
 
 function Menu:initialize(opts)
-	local options = merge_tables({
-		x = MENU_X,
-		y = MENU_Y,
-		width = MENU_WIDTH,
-		height = MENU_HEIGHT,
-		padding = MENU_PADDING,
-		background_color = MENU_BACKGROUND_COLOR,
-		title_color = MENU_TITLE_COLOR,
-	}, opts)
+	local options = merge_tables(DEFAULT_MENU_OPTIONS, opts)
 	Entity.initialize(self, options)
 	self.padding = options.padding
 	self.background_color = options.background_color

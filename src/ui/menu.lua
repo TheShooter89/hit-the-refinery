@@ -43,6 +43,7 @@ function Menu:initialize(opts)
 				print("STARTING THE GAME")
 				-- love.event.quit(0)
 				game_state.mode = Modes.RUNNING
+				print("[CLICKED] user: " .. tostring(game_state.user.name))
 			end,
 		}),
 	}

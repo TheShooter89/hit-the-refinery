@@ -11,6 +11,8 @@ local Entity = require("core.entity")
 ---@field is_over boolean
 ---@field hover_background_color {r: number, g: number, b: number}
 ---@field hover_title_color  {r: number, g: number, b: number}
+---@field is_clicked boolean
+---@field _is_last_clicked boolean
 ---@field text string
 local DEFAULT_BUTTON_OPTIONS = {
 	x = 0,
@@ -25,6 +27,7 @@ local DEFAULT_BUTTON_OPTIONS = {
 	hover_background_color = { love.math.colorFromBytes(255, 215, 0) },
 	hover_title_color = { love.math.colorFromBytes(255, 215, 0) },
 	is_clicked = false,
+	_is_last_clicked = false,
 	on_click = function(dt)
 		print("BUTTON CLICKED!")
 		-- love.event.quit(0)
@@ -53,6 +56,7 @@ function Button:initialize(opts)
 		"hover_background_color",
 		"hover_title_color",
 		"is_clicked",
+		"_is_last_clicked",
 		"on_click",
 		"mode",
 		"text",
@@ -85,11 +89,6 @@ function Button:draw()
 		love.graphics.setColor(self.title_color)
 	end
 	love.graphics.print(title, title_x, title_y)
-
-	if self.is_clicked then
-		self.on_click(dt)
-		self.is_clicked = false
-	end
 end
 
 function Button:update(dt)
@@ -105,8 +104,17 @@ function Button:update(dt)
 		self.mode = "fill"
 	end
 
+	self._is_last_clicked = self.is_clicked
+
 	if love.mouse.isDown(1) and hot then
 		self.is_clicked = true
+	end
+
+	if self.is_clicked then
+		if not self.is_clicked == self._is_last_clicked then
+			self.on_click(dt)
+			self.is_clicked = false
+		end
 	end
 end
 

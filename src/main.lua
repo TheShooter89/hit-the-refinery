@@ -13,7 +13,7 @@ print("+-------------------+")
 print("coded with <3 by tanque")
 
 function love.load()
-	game_state = State:new({ user = "PLAYER_1" })
+	game_state = State:new()
 	print("GAME MODE: " .. game_state.mode)
 
 	-- menu = require("ui.menu")

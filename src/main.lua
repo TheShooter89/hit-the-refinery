@@ -3,6 +3,7 @@ dofile("setup.lua")
 require("love")
 class = require("lib.middleclass")
 
+State = require("core.state")
 Modes = require("core.modes")
 Menu = require("ui.menu")
 
@@ -12,7 +13,7 @@ print("+-------------------+")
 print("coded with <3 by tanque")
 
 function love.load()
-	game_state = require("core.state")
+	game_state = State:new()
 	print("GAME MODE: " .. game_state.mode)
 
 	-- menu = require("ui.menu")

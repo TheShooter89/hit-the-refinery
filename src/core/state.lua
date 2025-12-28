@@ -16,7 +16,7 @@ local State = class("State")
 function State:initialize(opts)
 	local options = merge_tables(DEFAULT_STATE_OPTIONS, opts)
 
-	self.mode = options.mode
+	merge_tables(self, options)
 end
 
 return State

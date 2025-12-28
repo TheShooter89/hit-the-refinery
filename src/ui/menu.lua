@@ -30,9 +30,11 @@ local Menu = class("Menu", Entity)
 function Menu:initialize(opts)
 	local options = merge_tables(DEFAULT_MENU_OPTIONS, opts)
 	Entity.initialize(self, options)
-	self.padding = options.padding
-	self.background_color = options.background_color
-	self.title_color = options.title_color
+	init_self_fields(self, {
+		"padding",
+		"background_color",
+		"title_color",
+	}, options)
 
 	self.buttons = {
 		Button:new({

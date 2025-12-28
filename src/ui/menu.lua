@@ -40,7 +40,7 @@ function Menu:initialize(opts)
 	self.title_color = options.title_color
 
 	self.buttons = {
-		Button:new(),
+		Button:new({ text = "START GAME" }),
 	}
 end
 

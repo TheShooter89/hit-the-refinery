@@ -45,16 +45,18 @@ function Button:initialize(opts)
 	options = merge_tables(DEFAULT_BUTTON_OPTIONS, opts)
 	Entity.initialize(self, options)
 
-	self.padding = options.padding
-	self.background_color = options.background_color
-	self.title_color = options.title_color
-	self.is_hover = options.is_hover
-	self.hover_background_color = options.hover_background_color
-	self.hover_title_color = options.hover_title_color
-	self.is_clicked = options.is_clicked
-	self.on_click = options.on_click
-	self.mode = options.mode
-	self.text = options.text
+	init_self_fields(self, {
+		"padding",
+		"background_color",
+		"title_color",
+		"is_hover",
+		"hover_background_color",
+		"hover_title_color",
+		"is_clicked",
+		"on_click",
+		"mode",
+		"text",
+	}, options)
 end
 
 function Button:draw()

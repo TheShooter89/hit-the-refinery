@@ -1,5 +1,7 @@
 require("utils.tables")
 
+Modes = require("core.modes")
+
 local Entity = require("core.entity")
 local Button = require("ui.button")
 
@@ -33,7 +35,14 @@ function Menu:initialize(opts)
 	self.title_color = options.title_color
 
 	self.buttons = {
-		Button:new({ text = "START GAME" }),
+		Button:new({
+			text = "START GAME",
+			on_click = function(dt)
+				print("STARTING THE GAME")
+				-- love.event.quit(0)
+				game_state.mode = Modes.RUNNING
+			end,
+		}),
 	}
 end
 

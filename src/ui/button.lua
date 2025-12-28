@@ -24,6 +24,11 @@ local DEFAULT_BUTTON_OPTIONS = {
 	is_over = false,
 	hover_background_color = { love.math.colorFromBytes(255, 215, 0) },
 	hover_title_color = { love.math.colorFromBytes(255, 215, 0) },
+	is_clicked = false,
+	on_click = function(dt)
+		print("BUTTON CLICKED!")
+		-- love.event.quit(0)
+	end,
 }
 
 ---@class Button: Entity
@@ -46,6 +51,8 @@ function Button:initialize(opts)
 	self.is_hover = options.is_hover
 	self.hover_background_color = options.hover_background_color
 	self.hover_title_color = options.hover_title_color
+	self.is_clicked = options.is_clicked
+	self.on_click = options.on_click
 	self.mode = options.mode
 	self.text = options.text
 end
@@ -76,6 +83,11 @@ function Button:draw()
 		love.graphics.setColor(self.title_color)
 	end
 	love.graphics.print(title, title_x, title_y)
+
+	if self.is_clicked then
+		self.on_click(dt)
+		self.is_clicked = false
+	end
 end
 
 function Button:update(dt)
@@ -89,6 +101,10 @@ function Button:update(dt)
 	else
 		self.is_hover = false
 		self.mode = "fill"
+	end
+
+	if love.mouse.isDown(1) and hot then
+		self.is_clicked = true
 	end
 end
 

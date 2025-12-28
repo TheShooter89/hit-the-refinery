@@ -9,3 +9,9 @@ function merge_tables(t1, t2)
 
 	return t1
 end
+
+function init_self_fields(self, fields, opts)
+	for _, field in ipairs(fields) do
+		self[field] = opts[field]
+	end
+end

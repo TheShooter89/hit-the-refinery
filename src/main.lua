@@ -5,6 +5,7 @@ class = require("lib.middleclass")
 
 State = require("core.state")
 Modes = require("core.modes")
+Theme = require("core.theme")
 Menu = require("ui.menu")
 
 print("+-------------------+")

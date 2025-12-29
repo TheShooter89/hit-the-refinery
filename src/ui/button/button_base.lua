@@ -21,7 +21,7 @@ local DEFAULT_BUTTON_OPTIONS = {
 	theme = ButtonTheme:new(),
 	is_clicked = false,
 	_is_last_clicked = false,
-	on_click = function(dt)
+	on_click = function(self, dt, parent)
 		print("BUTTON CLICKED!")
 		-- love.event.quit(0)
 	end,
@@ -68,7 +68,7 @@ function Button:draw()
 	love.graphics.print(title, title_x, title_y)
 end
 
-function Button:update(dt)
+function Button:update(dt, context)
 	-- print("updating menu")
 	local mx, my = love.mouse.getPosition()
 	local hot = mx > self.x and mx < self.x + self.width and my > self.y and my < self.y + self.height
@@ -87,7 +87,7 @@ function Button:update(dt)
 
 	if self.is_clicked then
 		if not self.is_clicked == self._is_last_clicked then
-			self.on_click(self, dt)
+			self.on_click(self, dt, context)
 			self.is_clicked = false
 		end
 	end

@@ -1,6 +1,7 @@
 require("utils.tables")
 
 local class = require("lib.middleclass")
+local Theme = require("core.theme")
 
 local ButtonThemeVariant = require("ui.button.theme_variant")
 
@@ -28,26 +29,24 @@ local DEFAULT_BUTTON_THEME_OPTIONS = {
 	hover = DEFAULT_VARIANT_HOVER,
 }
 
----@class ButtonTheme
+---@class ButtonTheme: Theme
 ---@field current ButtonThemeVariant
 ---@field primary ButtonThemeVariant
 ---@field hover ButtonThemeVariant
 ---@field new fun(opt: ButtonThemeOptions): self
 ---@field initialize fun(self: self, opt: ButtonThemeOptions): self
-local ButtonTheme = class("ButtonTheme")
+local ButtonTheme = class("ButtonTheme", Theme)
 
 function ButtonTheme:initialize(opts)
 	local options = merge_tables(DEFAULT_BUTTON_THEME_OPTIONS, opts)
+
+	Theme.initialize(self, options)
 
 	init_self_fields(self, {
 		"current",
 		"primary",
 		"hover",
 	}, options)
-end
-
-function ButtonTheme:setCurrent(theme_name)
-	self.current = self[theme_name] or self.primary
 end
 
 return ButtonTheme

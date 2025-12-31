@@ -4,6 +4,8 @@ Modes = require("core.modes")
 
 local Entity = require("core.entity")
 local Button = require("ui.button")
+local MenuTheme = require("ui.menu.theme")
+local MenuThemeVariant = require("ui.menu.theme_variant")
 
 ---@class MenuOptions
 ---@field padding number
@@ -15,14 +17,17 @@ local DEFAULT_MENU_OPTIONS = {
 	width = 360,
 	height = 300,
 	padding = 30,
-	background_color = { love.math.colorFromBytes(0, 87, 183) },
-	title_color = { love.math.colorFromBytes(255, 215, 0) },
+	theme = MenuTheme:new({
+		primary = MenuThemeVariant:new({
+			background_color = { love.math.colorFromBytes(0, 87, 183) },
+			title_color = { love.math.colorFromBytes(255, 215, 0) },
+		}),
+	}),
 }
 
 ---@class Menu: Entity
 ---@field padding number
----@field background_color {r: number, g: number, b: number}
----@field title_color  {r: number, g: number, b: number}
+---@field theme MenuTheme
 ---@field new fun(opt: MenuOptions): self
 ---@field initialize fun(self: self, opt: MenuOptions): self
 local Menu = class("Menu", Entity)
@@ -32,19 +37,21 @@ function Menu:initialize(opts)
 	Entity.initialize(self, options)
 	init_self_fields(self, {
 		"padding",
-		"background_color",
-		"title_color",
+		"theme",
 	}, options)
 
 	self.buttons = {
 		Button:new({
 			text = "START GAME",
-			on_click = function(self, dt)
+			on_click = function(self, dt, parent)
 				print("STARTING THE GAME")
 				-- love.event.quit(0)
 				game_state.mode = Modes.RUNNING
 				print("[CLICKED] user: " .. tostring(game_state.user.name))
 				print("[CLICKED] current theme: " .. tostring(self.theme.current.name))
+				print("[CLICKED] dt: " .. tostring(dt))
+				print("[CLICKED] parent: " .. tostring(parent))
+				-- print("[CLICKED] parent theme: " .. tostring(parent.theme.current.name))
 			end,
 		}),
 	}
@@ -61,7 +68,7 @@ function Menu:draw()
 	self.y = origin_y
 
 	-- draw the menu
-	love.graphics.setColor(self.background_color)
+	love.graphics.setColor(self.theme.current.background_color)
 	love.graphics.rectangle("fill", origin_x, origin_y, self.width, self.height)
 
 	-- draw the menu title
@@ -72,8 +79,11 @@ function Menu:draw()
 	local title_length = font:getWidth(title)
 	title_x = self.x + ((self.width - title_length) / 2)
 	title_y = self.y + self.padding
-	love.graphics.setColor(self.title_color)
+
+	love.graphics.setColor(self.theme.current.title_color)
 	love.graphics.print(title, title_x, self.y + self.padding)
+
+	print("[DEBUG] menu current theme DRAWING: " .. tostring(self.theme.current.name))
 
 	-- draw button
 	print("inside draw menu")
@@ -92,7 +102,8 @@ function Menu:update(dt)
 	print(self.buttons)
 	-- self.buttons[0]:update(dt)
 	local btn = self.buttons[1]
-	btn:update(dt)
+	print("[DEBUG] menu current theme UPDATING: " .. tostring(self.theme.current.name))
+	btn:update(dt, self.theme.current.name)
 end
 
 return Menu

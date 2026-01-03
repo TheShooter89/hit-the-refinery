@@ -3,6 +3,10 @@ dofile("setup.lua")
 require("love")
 class = require("lib.middleclass")
 
+uuid = require("lib.uuid")
+uuid.rng.math_randomseed(tostring(os.time()))
+uuid.set_rng(uuid.rng.math_random())
+
 State = require("core.state")
 Modes = require("core.modes")
 Theme = require("core.theme")

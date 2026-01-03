@@ -51,6 +51,7 @@ function Menu:initialize(opts)
 				print("[CLICKED] current theme: " .. tostring(self.theme.current.name))
 				print("[CLICKED] dt: " .. tostring(dt))
 				print("[CLICKED] parent: " .. tostring(parent))
+				print("[CLICKED] entity id: " .. self.id)
 				-- print("[CLICKED] parent theme: " .. tostring(parent.theme.current.name))
 			end,
 		}),

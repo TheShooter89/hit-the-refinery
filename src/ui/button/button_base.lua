@@ -1,7 +1,7 @@
 require("utils.tables")
 
 local class = require("lib.middleclass")
-local Entity = require("core.entity")
+local Entity = require("core.graphics.entity")
 
 local ButtonTheme = require("ui.button.theme")
 

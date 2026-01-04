@@ -2,7 +2,8 @@ require("utils.tables")
 
 Modes = require("core.modes")
 
-local Entity = require("core.entity")
+local Entity = require("core.graphics.entity")
+-- local Entity = require("core.entity")
 local Button = require("ui.button")
 local MenuTheme = require("ui.menu.theme")
 local MenuThemeVariant = require("ui.menu.theme_variant")

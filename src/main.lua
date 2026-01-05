@@ -1,6 +1,7 @@
 dofile("setup.lua")
 
 require("love")
+inspect = require("lib.inspect")
 class = require("lib.middleclass")
 
 uuid = require("lib.uuid")
@@ -12,6 +13,8 @@ Modes = require("core.modes")
 Theme = require("core.theme")
 Menu = require("ui.menu")
 
+Tests = require("test")
+
 print("+-------------------+")
 print("| HIT THE REFINERY! |")
 print("+-------------------+")
@@ -21,23 +24,32 @@ function love.load()
 	game_state = State:new()
 	print("GAME MODE: " .. game_state.mode)
 
+	Tests:load()
+
 	-- menu = require("ui.menu")
 	menu = Menu:new()
 end
 
 function love.update(dt)
+	Tests:update(dt)
+
 	if game_state.mode == Modes.START then
 		menu:update(dt)
+	elseif game_state.mode == Modes.RUNNING then
+		-- test_drawable:update_all(dt, external_update_opts)
 	elseif game_state.mode == Modes.PAUSE then
 		menu:update(dt)
 	end
 end
 
 function love.draw()
+	Tests:draw()
+
 	if game_state.mode == Modes.START then
 		menu:draw()
 	elseif game_state.mode == Modes.PAUSE then
 		menu:draw()
+		-- test_drawable:render()
 	end
 end
 

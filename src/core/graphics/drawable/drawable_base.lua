@@ -3,11 +3,13 @@ require("utils.validation")
 
 local class = require("lib.middleclass")
 
-local DrawableRenderOpts, DEFAULT_DRAWABLE_RENDER_OPTS_CHILDREN =
-	table.unpack(require("core.graphics.drawable.render_opts"))
+local r_opts = require("core.graphics.drawable.render_opts")
+local DrawableRenderOpts = r_opts.DrawableRenderOpts
+local DEFAULT_DRAWABLE_RENDER_OPTS_CHILDREN = r_opts.DEFAULT_DRAWABLE_RENDER_OPTS_CHILDREN
 
-local DrawableUpdateOpts, DEFAULT_DRAWABLE_UPDATE_OPTS_CHILDREN =
-	table.unpack(require("core.graphics.drawable.update_opts"))
+local u_opts = require("core.graphics.drawable.update_opts")
+local DrawableUpdateOpts = u_opts.DrawableUpdateOpts
+local DEFAULT_DRAWABLE_UPDATE_OPTS_CHILDREN = u_opts.DEFAULT_DRAWABLE_UPDATE_OPTS_CHILDREN
 
 ---@alias DrawableChildrenProps string[]
 local DEFAULT_DRAWABLE_CHILDREN_PROPS = {

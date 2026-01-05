@@ -46,6 +46,6 @@ function DrawableRenderOpts:initialize(opts)
 end
 
 return {
-	DrawableRenderOpts,
-	DEFAULT_DRAWABLE_RENDER_OPTS_CHILDREN,
+	DrawableRenderOpts = DrawableRenderOpts,
+	DEFAULT_DRAWABLE_RENDER_OPTS_CHILDREN = DEFAULT_DRAWABLE_RENDER_OPTS_CHILDREN,
 }

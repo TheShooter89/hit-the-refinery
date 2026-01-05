@@ -46,6 +46,6 @@ function DrawableUpdateOpts:initialize(opts)
 end
 
 return {
-	DrawableUpdateOpts,
-	DEFAULT_DRAWABLE_UPDATE_OPTS_CHILDREN,
+	DrawableUpdateOpts = DrawableUpdateOpts,
+	DEFAULT_DRAWABLE_UPDATE_OPTS_CHILDREN = DEFAULT_DRAWABLE_UPDATE_OPTS_CHILDREN,
 }
